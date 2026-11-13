@@ -1,0 +1,18 @@
+{
+  "name": "백령호텔 — 열흘 밤",
+  "short_name": "백령호텔",
+  "description": "철거까지 열흘. 폐광촌 호텔의 야간 프런트. 분기형 공포 시뮬레이션.",
+  "id": "./baekryeong.html",
+  "start_url": "./baekryeong.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b090c",
+  "theme_color": "#0b090c",
+  "lang": "ko",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
