@@ -185,6 +185,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <button class="mb" id="bnew">새 근무</button>
     <button class="mb" id="bcont">이어하기</button>
     <button class="mb" id="bend">엔딩 목록</button>
+    <button class="mb" id="binst" style="display:none;border-color:#a3211f;color:#e0564d">앱으로 설치</button>
     <div class="foot">제작 Leeb · 이어폰 권장 · 깜짝 연출 주의</div>
   </div>
   <div id="card" class="screen"></div>
@@ -1661,6 +1662,11 @@ const sndBtn=()=>{$('bsnd').textContent=muted?'×':'♪';$('bsnd').style.opacity
 $('bsnd').onclick=e=>{e.stopPropagation();muted=!muted;store.set('baekryeong_mute',muted?1:0);audioInit();if(master)master.gain.value=muted?0:.9;sndBtn()};
 sndBtn();refreshTitle();setBg('outside');
 window.__game={get st(){return st},goto,S};
+// Chrome 메뉴의 설치가 막혀도, 게임 안 버튼으로 직접 설치 창을 띄운다
+let instEvt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();instEvt=e;$('binst').style.display='block'});
+window.addEventListener('appinstalled',()=>{instEvt=null;$('binst').style.display='none'});
+$('binst').onclick=()=>{if(!instEvt)return;instEvt.prompt();instEvt.userChoice.then(()=>{instEvt=null;$('binst').style.display='none'})};
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
