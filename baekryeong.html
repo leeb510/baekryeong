@@ -49,12 +49,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* cut images */
 #cgb{position:absolute;left:-10%;top:-10%;width:120%;height:120%;object-fit:cover;filter:blur(20px) brightness(.36) saturate(.75);opacity:0;transition:opacity .9s;pointer-events:none}
-#cgw{position:absolute;left:0;right:0;top:calc(50px + env(safe-area-inset-top));aspect-ratio:16/9;overflow:hidden;opacity:0;transition:opacity .7s;box-shadow:0 0 44px 10px #000}
-#cgw::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 46px 14px rgba(0,0,0,.9);pointer-events:none}
-#cg{width:100%;height:100%;object-fit:cover;display:block;animation:kb 26s ease-in-out infinite alternate}
-@keyframes kb{from{transform:scale(1.03)}to{transform:scale(1.2) translate(-2.5%,1.5%)}}
+#cgw{position:absolute;left:0;right:0;top:calc(46px + env(safe-area-inset-top));bottom:calc(31% + 10px);display:flex;align-items:center;opacity:0;transition:opacity .7s}
+#cgf{position:relative;width:100%;aspect-ratio:4/3;max-height:100%;overflow:hidden;box-shadow:0 0 50px 14px #000}
+#cgf::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 40px 10px rgba(0,0,0,.85);pointer-events:none}
+#cg{height:100%;width:auto;max-width:none;aspect-ratio:16/9;display:block;animation:kb 34s ease-in-out -17s infinite alternate}
+@keyframes kb{from{transform:translateX(-1%) scale(1.02)}to{transform:translateX(-24%) scale(1.02)}}
 .cgon #cgb,.cgon #cgw{opacity:1}
-.cgon #spr{height:calc(var(--h,1)*39vh);height:calc(var(--h,1)*39dvh);bottom:30.5%}
+#spr{display:none!important}
+#pop{position:absolute;left:50%;bottom:27%;height:74vh;height:74dvh;max-width:none;transform:translateX(-50%);opacity:0;pointer-events:none;z-index:9;filter:drop-shadow(0 0 22px rgba(150,190,220,.5)) contrast(1.25) saturate(.6)}
+#pop.on{animation:popg 1.05s cubic-bezier(.1,.8,.2,1)}
+@keyframes popg{0%{opacity:0;transform:translateX(-50%) scale(1.5)}7%{opacity:.96;transform:translateX(-52%) scale(1.12)}14%{transform:translateX(-48.5%) scale(1.06)}22%{opacity:.9;transform:translateX(-50%) scale(1.02)}55%{opacity:.75}100%{opacity:0;transform:translateX(-50%) scale(.98);filter:blur(5px)}}
 .lows #cg{filter:saturate(.55) contrast(1.15)}
 /* horror layers */
 #appar{position:absolute;pointer-events:none;opacity:0;transition:opacity 1.6s;filter:brightness(0) blur(1.2px);z-index:9}
@@ -162,7 +166,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 <div id="app">
   <div id="stage">
     <div id="bg"></div><img id="cgb" alt=""><div id="fog"></div>
-    <div id="cgw"><img id="cg" alt=""></div>
+    <div id="cgw"><div id="cgf"><img id="cg" alt=""></div></div>
+    <img id="pop" alt="">
     <img id="appar" alt="">
     <img id="spr" alt="">
     <div id="dark"></div><div id="vig"></div><div id="vig2"></div><div id="grain"></div>
@@ -268,6 +273,7 @@ soon: …그건 그날 가서 생각혀. 열흘이나 남았잖여.
 할머니는 내 눈을 보지 않았다.`,go:'d1_night'},
 
 d1_night:{bg:'lobby',time:'00:07',t:`
+@cg 06
 @hide
 자정이 지났다. 투숙객 명단은 거의 비어 있다. 장기 투숙 중이라는 간호사 한 명뿐.
 난로가 꺼진 로비는 숨소리까지 울린다.
@@ -603,7 +609,7 @@ ha: 돈 때문에요? …어른들은 다 똑같아.
  {t:'짐을 싼다. 막차를 탄다',go:'e5'}
 ]},
 d5_stay:{time:'19:00',t:`
-@cg off
+@cg 06
 @show ma
 ma: 엘리베이터 살렸습니다! 근데 이상해요. 버튼은 5층까진데 제어반엔 지하 2층이 잡혀요. 도면에도 없는 층이.
 @hide
@@ -699,6 +705,7 @@ d6:{day:6,title:'물소리',bg:'outside',time:'15:00',t:`
 이제 이 호텔엔 나갈 수 없는 사람이 열, 나가지 못한 것들이 열.
 @bg lobby
 @show yeom
+@cg 11
 yeom: 눈이 오면 갱 안이 따뜻했지. 바깥보다.
 yeom: …내가 반장이었소. 제2갱. 무너지던 날, 나만 나왔어. 사장이 그랬지. 안에 산 사람 없다고. 막자고.
 yeom: 나는 두드리는 소리를 들었는데. 사흘을 들었는데. 도장을 찍었소.
@@ -824,6 +831,7 @@ bride: 거짓말하는 하객은, 필요 없어요.
 @san -15`,go:'d7_3am'},
 
 d7_3am:{timer:10,tdef:1,bg:'lobby',time:'03:00',t:`
+@cg 06
 @hide
 새벽 세 시. 로비의 시계 초침이 멎었다.
 @fx dark
@@ -983,6 +991,7 @@ c:[
 
 /* ───────────── DAY 9 ───────────── */
 d9:{day:9,title:'얼굴',bg:'lobby',time:'16:00',t:`
+@cg 47
 아흐레째. 내일 밤이다.
 하람은 학교 가방 대신 소금 봉지를 메고 다닌다. 화연은 연회장에 굿상을 차리기 시작했다.
 @show yeom
@@ -1088,6 +1097,7 @@ soon: …그려. 그만할 때가 됐지. 서른 해면.
 
 /* ───────────── DAY 10 ───────────── */
 d10:{day:10,title:'체크아웃',bg:'lobby',time:'22:00',t:`
+@cg 29
 열흘째 밤. 눈이 그쳤다. 내일 아침이면 철거반이 고개를 넘어온다.
 누가 말하지 않아도, 로비에 모두 모였다.
 ?f.haeLost| 해준의 자리는 비어 있다.
@@ -1493,7 +1503,9 @@ function setCg(n){
   setTimeout(()=>{im.src=src},el.stage.classList.contains('cgon')?260:0);
 }
 function preload(sc){const m=((sc.t||'')+(sc.c||[]).map(c=>c.say||'').join('')).match(/@cg \d\d/g)||[];m.forEach(x=>{(new Image()).src='img/'+x.slice(4)+'.webp'})}
-function show(k){const c=CH[k];if(!c||!c.s)return;const d=SPR[c.s];
+let popped={};
+function pop(k){const c=CH[k],p=$('pop');p.src=SPR[c.s].u;p.classList.remove('on');void p.offsetWidth;p.classList.add('on');thump(0,.7,140);sfx('static');if(navigator.vibrate)navigator.vibrate(80)}
+function show(k){const c=CH[k];if(!c||!c.s)return;if(c.g&&!popped[k]){popped[k]=1;pop(k)}return;const d=SPR[c.s];
   if(st.spr===k&&el.spr.classList.contains('on'))return;
   st.spr=k;el.spr.classList.remove('on');
   setTimeout(()=>{if(st.spr!==k)return;el.spr.src=d.u;el.spr.style.setProperty('--h',d.h);el.spr.classList.toggle('ghost',!!c.g);el.spr.classList.add('on')},120);}
@@ -1572,6 +1584,7 @@ function pick(c){
   if(c.say)play(c.say,go);else go();
 }
 function goto(id){
+  popped={};
   if(tmo){clearTimeout(tmo);tmo=null}racing=false;
   let sc=S[id];
   if(st.san<=0&&!sc.end&&!sc.dead&&id!=='san0'){id='san0';sc=S[id]}
